@@ -3,85 +3,117 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="./assets/styles/utils.css" />
     <link rel="stylesheet" href="./assets/styles/main.css" />
     <title>MangaLib</title>
   </head>
   <body>
-    <header>
-      <h1>MangaLib</h1>
-    </header>
+    <div class="layout">
+      <header>
+        <h1>MangaLib</h1>
+      </header>
 
-    <main>
-      <div class="container">
-        <div class="card">
-          <img src="./assets/images/jjk-vol25.svg" width="200" alt="Card Img" />
-          <p class="title">Jujutsu Kaisen VOL. 25</p>
-          <p class="author">Gege Akutami</p>
-          <p class="pages">218 pages</p>
-          <label class="switch">
-            <input type="checkbox" />
-            <span class="slider round"></span>
-          </label>
-        </div>
-      </div>
-
-      <dialog class="modal">
-        <form>
-          <div class="canvas">
-            <input type="file" />
+      <main>
+        <div class="container">
+          <div class="card">
+            <div class="book">
+              <img
+                src="./assets/images/jjk-vol25.svg"
+                width="200"
+                alt="Card Img"
+              />
+              <p class="title">Jujutsu Kaisen VOL. 25</p>
+              <p class="author">Gege Akutami</p>
+              <p class="pages">218 pages</p>
+            </div>
+            <label class="switch">
+              <input type="checkbox" />
+              <span class="slider"><p>Read</p></span>
+            </label>
           </div>
-          <div class="details">
-            <input type="text" id="" placeholder="Title" />
-            <input type="text" id="" placeholder="Author" />
-            <input type="text" id="" placeholder="Pages" />
-            <ul>
-              <li>
-                <label for="read"
-                  ><input
+        </div>
+
+        <dialog class="modal" id="modalAddBook">
+          <button class="close" id="modalCloseButton">
+            <img src="./assets/images/close.svg" alt="Close button" />
+          </button>
+          <form id="addBookForm">
+            <div class="canvas">
+              <label for="uploaded-image" class="upload-image">
+                <p>Upload Image</p>
+              </label>
+              <input
+                id="uploaded-image"
+                type="file"
+                accept="image/*"
+                disabled
+              />
+            </div>
+            <div class="details">
+              <input type="text" id="title" placeholder="Title" autocomplete="off" required />
+              <input type="text" id="author" placeholder="Author" autocomplete="off" required />
+              <input
+                type="text"
+                id="pages"
+                placeholder="Pages"
+                autocomplete="off"
+                pattern="[0-9]*"
+                required
+              />
+              <ul>
+                <li>
+                  <input
                     type="radio"
                     name="status"
                     id="read"
                     value="read"
                     checked
-                  />Read</label
-                >
-              </li>
-              <li>
-                <label for="not read"
-                  ><input
+                  />
+                  <label for="read">Read</label>
+                </li>
+                <li>
+                  <input
                     type="radio"
                     name="status"
                     id="not read"
                     value="not read"
-                  />Not Read</label
-                >
-              </li>
-            </ul>
-          </div>
-        </form>
-      </dialog>
+                  />
+                  <label for="not read">Not Read</label>
+                </li>
+              </ul>
+            </div>
+          </form>
 
-      <button>
-        <img src="./assets/images/add.svg" alt="Add" />
-      </button>
-    </main>
+          <button type="submit" form="addBookForm">Add book</button>
+        </dialog>
 
-    <footer>
-      <p>
-        Copyright ©
-        <span id="currentYear"></span>
-        zen-pb
-      </p>
-      <a href="https://github.com/zen-pb" target="_blank">
-        <img
-          src="./assets/images/github-mark-white.svg"
-          width="35"
-          height="35"
-          alt="github"
-        />
-      </a>
-    </footer>
+        <button class="add" id="addBookButton">
+          <img src="./assets/images/add.svg" alt="Add" />
+        </button>
+      </main>
+
+      <footer>
+        <p>
+          Copyright ©
+          <span id="currentYear"></span>
+          zen-pb
+        </p>
+        <a href="https://github.com/zen-pb" target="_blank">
+          <img
+            src="./assets/images/github-mark-white.svg"
+            width="35"
+            height="35"
+            alt="github"
+          />
+        </a>
+      </footer>
+    </div>
 
     <script src="./assets/src/script.js"></script>
   </body>
