@@ -24,7 +24,7 @@ body {
     -webkit-font-smoothing: antialiased;
     background-color: var(--background);
     color: var(--text);
-    font-family: "Montserrat";
+    font-family: "Montserrat", system-ui, "Segoe UI", Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol";
 }
 
 button {
