@@ -13,6 +13,8 @@ const myLibrary = [
 document.addEventListener("DOMContentLoaded", () => {
   displayLibrary();
 
+  const cardCloseButton = document.getElementById("cardCloseButton");
+
   const addBookButton = document.getElementById("addBookButton");
   const modalAddBook = document.getElementById("modalAddBook");
   const modalCloseButton = document.getElementById("modalCloseButton");
@@ -79,10 +81,19 @@ document.addEventListener("DOMContentLoaded", () => {
     flush();
   });
 
-  function closeModal() {
-    modalAddBook.classList.remove("open");
-  }
+  cardCloseButton.addEventListener("click", () => {
+    const parentElement = cardCloseButton.parentElement;
+    const book = cardCloseButton.parentElement.textContent
+      .toLowerCase()
+      .replace(/ /g, "");
+
+    deleteBook(parentElement, book);
+  });
 });
+
+function closeModal() {
+  modalAddBook.classList.remove("open");
+}
 
 function Book(imageURL, title, author, pages, status) {
   return {
@@ -98,12 +109,26 @@ function addBookToLibrary(bookObject) {
   myLibrary.push(bookObject);
 }
 
+function deleteBook(parentElement, book) {
+  myLibrary.forEach((item) => {
+    let bookTitle = item.title.toLowerCase().replace(/ /g, "");
+
+    if (book.includes(bookTitle)) {
+      myLibrary.pop(item);
+    }
+  });
+
+  container.removeChild(parentElement);
+}
+
 function displayLibrary() {
   myLibrary.forEach((book) => {
     if (cardChecker(book.title)) {
       return;
     } else {
       const card = document.createElement("div");
+      const button = document.createElement("button");
+      const svg = document.createElement("img");
       const bookDiv = document.createElement("div");
       const bookImg = document.createElement("img");
       const bookTitle = document.createElement("p");
@@ -115,6 +140,7 @@ function displayLibrary() {
       const p = document.createElement("p");
 
       card.classList.add("card");
+      button.classList.add("close-card");
       bookDiv.classList.add("book");
       bookTitle.classList.add("title");
       bookAuthor.classList.add("author");
@@ -123,12 +149,16 @@ function displayLibrary() {
       bookStatus.type = "checkbox";
       span.classList.add("slider");
 
+      button.id = "cardCloseButton";
+      svg.src = "../assets/images/close.svg";
       bookImg.src = book.img;
       bookTitle.textContent = book.title;
       bookAuthor.textContent = book.author;
       bookPages.textContent = `${book.pages} pages`;
       bookStatus.checked = book.status === "read";
       p.textContent = "Read";
+
+      button.appendChild(svg);
 
       bookDiv.appendChild(bookImg);
       bookDiv.appendChild(bookTitle);
@@ -139,6 +169,7 @@ function displayLibrary() {
       span.appendChild(p);
       label.appendChild(span);
 
+      card.appendChild(button);
       card.appendChild(bookDiv);
       card.appendChild(label);
 
