@@ -223,7 +223,7 @@ dialog>button:not(:disabled):hover {
 }
 
 dialog>button:disabled {
-    background-color: #507eaf;
+    background-color: #182634;
 }
 
 form .canvas {
