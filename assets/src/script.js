@@ -13,7 +13,16 @@ const myLibrary = [
 document.addEventListener("DOMContentLoaded", () => {
   displayLibrary();
 
-  const cardCloseButton = document.getElementById("cardCloseButton");
+  container.addEventListener("click", (event) => {
+    if (event.target.closest(".close-card")) {
+      const card = event.target.closest(".card");
+      if (card) {
+        const book = card.textContent.toLowerCase().replace(/ /g, "");
+        deleteBook(book);
+        card.remove();
+      }
+    }
+  });
 
   const addBookButton = document.getElementById("addBookButton");
   const modalAddBook = document.getElementById("modalAddBook");
@@ -26,9 +35,10 @@ document.addEventListener("DOMContentLoaded", () => {
   const uploadedImage = document.getElementById("uploadedImage");
   const imagePreview = document.getElementById("imagePreview");
 
+  let imageURL = "../assets/images/default.svg";
+
   uploadedImage.addEventListener("change", function () {
     const image = uploadedImage.files[0];
-    let imageURL = "";
 
     if (image) {
       imageURL = URL.createObjectURL(image);
@@ -45,8 +55,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   titleInput.addEventListener("input", (event) => {
     title = event.target.value;
-
-    console.log(title);
 
     if (bookExists(title)) {
       exists.classList.add("exists");
@@ -80,15 +88,6 @@ document.addEventListener("DOMContentLoaded", () => {
     closeModal();
     flush();
   });
-
-  cardCloseButton.addEventListener("click", () => {
-    const parentElement = cardCloseButton.parentElement;
-    const book = cardCloseButton.parentElement.textContent
-      .toLowerCase()
-      .replace(/ /g, "");
-
-    deleteBook(parentElement, book);
-  });
 });
 
 function closeModal() {
@@ -109,16 +108,14 @@ function addBookToLibrary(bookObject) {
   myLibrary.push(bookObject);
 }
 
-function deleteBook(parentElement, book) {
-  myLibrary.forEach((item) => {
+function deleteBook(book) {
+  myLibrary.forEach((item, index) => {
     let bookTitle = item.title.toLowerCase().replace(/ /g, "");
 
     if (book.includes(bookTitle)) {
-      myLibrary.pop(item);
+      myLibrary.splice(index, 1);
     }
   });
-
-  container.removeChild(parentElement);
 }
 
 function displayLibrary() {
@@ -205,11 +202,10 @@ function cardChecker(bookTitle) {
 }
 
 function flush() {
-  imagePreview.src = "";
   imagePreview.style.display = "none";
-  imageURL = "";
-  title.textContent = "";
-  author.textContent = "";
-  pages.textContent = "";
-  status.textContent = "";
+  imageURL = "../assets/images/default.svg";
+  title.value = "";
+  author.value = "";
+  pages.value = "";
+  status.value = "";
 }
