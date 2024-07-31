@@ -375,7 +375,8 @@ footer {
 
 @media (width <= 535px){
     dialog {
-        height: 55vh;
+        justify-content: space-between;
+        height: 75vh;
         width: 90%;
         z-index: 1;
     }
@@ -393,7 +394,12 @@ footer {
     dialog form {
         display: flex;
         flex-direction: column;
+        justify-content: space-around;
         gap: 1.5rem;
+    }
+
+    form {
+        flex-grow: 1;
     }
 
     form .canvas {
@@ -401,7 +407,7 @@ footer {
     }
 
     .details input[type="text"] {
-        padding: 0 0 0 1rem;
+        padding: 0.5rem;
     }
     
 }
