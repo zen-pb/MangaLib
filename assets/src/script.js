@@ -2,7 +2,7 @@ const container = document.querySelector(".container");
 
 const myLibrary = [
   {
-    img: "../assets/images/jjk-vol25.svg",
+    img: "./assets/images/jjk-vol25.svg",
     title: "Jujutsu Kaisen VOL. 25",
     author: "Gege Akutami",
     pages: "218",
@@ -45,7 +45,7 @@ document.addEventListener("DOMContentLoaded", () => {
       imagePreview.src = imageURL;
       imagePreview.style.display = "block";
     } else {
-      imagePreview.src = "../assets/images/default.svg";
+      imagePreview.src = "./assets/images/default.svg";
       imagePreview.style.display = "none";
     }
   });
@@ -147,7 +147,7 @@ function displayLibrary() {
       span.classList.add("slider");
 
       button.id = "cardCloseButton";
-      svg.src = "../assets/images/close.svg";
+      svg.src = "./assets/images/close.svg";
       bookImg.src = book.img;
       bookTitle.textContent = book.title;
       bookAuthor.textContent = book.author;
