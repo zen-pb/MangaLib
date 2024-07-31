@@ -40,6 +40,7 @@ main {
     display: flex;
     flex-direction: column;
     padding: 1rem;
+    gap: 0.5rem;
     width: 260px;
     border-radius: 24px;
     background-color: var(--primary);
@@ -48,12 +49,27 @@ main {
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
 }
 
+.close-card {
+    align-self: flex-end;
+    border-radius: 50%;
+    width: 30px;
+    height: 30px;
+    background-color: var(--text);
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    transition: all ease-in-out 250ms;
+    cursor: pointer;
+}
+
+.close-card:hover {
+    scale: 1.1;
+}
+
 .card .book {
     display: flex;
     flex-direction: column;
 }
 
-.card img {
+.book img {
     width: 200px;
     height: 300px;
     object-fit: cover;
