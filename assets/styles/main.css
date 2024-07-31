@@ -376,7 +376,7 @@ footer {
 @media (width <= 535px){
     dialog {
         justify-content: space-between;
-        height: 75vh;
+        height: 670px;
         width: 90%;
         z-index: 1;
     }
