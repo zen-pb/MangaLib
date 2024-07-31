@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const uploadedImage = document.getElementById("uploadedImage");
   const imagePreview = document.getElementById("imagePreview");
 
-  let imageURL = "../assets/images/default.svg";
+  let imageURL = "./assets/images/default.svg";
 
   uploadedImage.addEventListener("change", function () {
     const image = uploadedImage.files[0];
@@ -208,7 +208,7 @@ function cardChecker(bookTitle) {
 
 function flush() {
   imagePreview.style.display = "none";
-  imageURL = "../assets/images/default.svg";
+  imageURL = "./assets/images/default.svg";
   title.value = "";
   author.value = "";
   pages.value = "";
