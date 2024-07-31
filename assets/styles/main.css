@@ -212,6 +212,9 @@ dialog>button {
 }
 
 dialog .close {
+    position: absolute;
+    bottom: 96%;
+    left: 96%;
     background-color: var(--text);
     border-radius: 50%;
     padding: 0;
@@ -356,4 +359,49 @@ footer {
     100% {
         rotate: 360deg;
     }
+}
+
+@media (width <= 655px){
+    header {
+        justify-content: center;
+    }
+
+    header img {
+        margin: 0;
+    }
+
+    
+}
+
+@media (width <= 535px){
+    dialog {
+        height: 55vh;
+        width: 90%;
+        z-index: 1;
+    }
+
+    dialog .close {
+        position: absolute;
+        bottom: 96%;
+        left: 93%;
+        background-color: var(--text);
+        border-radius: 50%;
+        padding: 0;
+        width: 40px;
+    }
+
+    dialog form {
+        display: flex;
+        flex-direction: column;
+        gap: 1.5rem;
+    }
+
+    form .canvas {
+        align-self: center;
+    }
+
+    .details input[type="text"] {
+        padding: 0 0 0 1rem;
+    }
+    
 }
