@@ -21,6 +21,23 @@ document.addEventListener("DOMContentLoaded", () => {
   const exists = document.getElementById("alreadyExists");
   const submitBookButton = document.getElementById("submitBook");
 
+  const uploadedImage = document.getElementById("uploadedImage");
+  const imagePreview = document.getElementById("imagePreview");
+
+  uploadedImage.addEventListener("change", function () {
+    const image = uploadedImage.files[0];
+    let imageURL = "";
+
+    if (image) {
+      imageURL = URL.createObjectURL(image);
+      imagePreview.src = imageURL;
+      imagePreview.style.display = "block"; // Show the preview image
+    } else {
+      imagePreview.src = "../assets/images/default.svg";
+      imagePreview.style.display = "none"; // Hide the preview if no image is selected
+    }
+  });
+
   const titleInput = document.getElementById("title");
   let title = "";
 
@@ -40,16 +57,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   addBookForm.addEventListener("submit", (event) => {
     event.preventDefault();
-
-    const uploadedImage = document.getElementById("uploadedImage");
-    const image = uploadedImage.files[0];
-    let imageURL = "";
-
-    if (image) {
-      imageURL = URL.createObjectURL(image);
-    } else {
-      imageURL = "../assets/images/default.svg";
-    }
 
     const author = document.getElementById("author").value;
     const pages = document.getElementById("pages").value;
