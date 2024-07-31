@@ -188,7 +188,7 @@ dialog>button {
     align-self: flex-end;
     border-radius: 12px;
     color: var(--text);
-    padding: 1rem;
+    padding: 0.75rem 1rem;
     border: none;
     cursor: pointer;
     transition: 250ms all ease-in-out;
