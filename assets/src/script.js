@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
     if (image) {
       imageURL = URL.createObjectURL(image);
       imagePreview.src = imageURL;
-      imagePreview.style.display = "block"; // Show the preview image
+      imagePreview.style.display = "block";
     } else {
       imagePreview.src = "../assets/images/default.svg";
-      imagePreview.style.display = "none"; // Hide the preview if no image is selected
+      imagePreview.style.display = "none";
     }
   });
 
@@ -74,7 +74,10 @@ document.addEventListener("DOMContentLoaded", () => {
     modalAddBook.classList.add("open");
   });
 
-  modalCloseButton.addEventListener("click", closeModal);
+  modalCloseButton.addEventListener("click", () => {
+    closeModal();
+    flush();
+  });
 
   function closeModal() {
     modalAddBook.classList.remove("open");
@@ -171,6 +174,8 @@ function cardChecker(bookTitle) {
 }
 
 function flush() {
+  imagePreview.src = "";
+  imagePreview.style.display = "none";
   imageURL = "";
   title.textContent = "";
   author.textContent = "";
