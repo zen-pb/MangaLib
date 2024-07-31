@@ -147,8 +147,13 @@ function displayLibrary() {
       span.classList.add("slider");
 
       button.id = "cardCloseButton";
+      button.name = "close";
       svg.src = "./assets/images/close.svg";
+      svg.alt = "close";
       bookImg.src = book.img;
+      bookImg.alt = "book cover";
+      bookImg.width = "200";
+      bookImg.height = "300";
       bookTitle.textContent = book.title;
       bookAuthor.textContent = book.author;
       bookPages.textContent = `${book.pages} pages`;
