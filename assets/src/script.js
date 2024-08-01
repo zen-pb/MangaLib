@@ -73,7 +73,8 @@ document.addEventListener("DOMContentLoaded", () => {
     const status = document.querySelector('input[name="status"]:checked').value;
 
     if (!bookExists(title)) {
-      addBookToLibrary(Book(imageURL, title, author, pages, status));
+      const book = new Book(imageURL, title, author, pages, status);
+      addBookToLibrary(book);
       closeModal();
       flush();
       displayLibrary();
