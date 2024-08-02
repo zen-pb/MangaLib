@@ -157,7 +157,7 @@ function displayLibrary() {
       bookImg.height = "300";
       bookTitle.textContent = book.title;
       bookAuthor.textContent = book.author;
-      bookPages.textContent = `${book.pages} pages`;
+      bookPages.textContent = `${book.pages} page/s`;
       bookStatus.checked = book.status === "read";
       p.textContent = "Read";
 
