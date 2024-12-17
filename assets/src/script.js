@@ -17,8 +17,8 @@ document.addEventListener("DOMContentLoaded", () => {
     if (event.target.closest(".close-card")) {
       const card = event.target.closest(".card");
       if (card) {
-        const book = card.textContent.toLowerCase().replace(/ /g, "");
-        deleteBook(book);
+        const bookTitle = card.querySelector(".title").textContent;
+        deleteBook(bookTitle);
         card.remove();
       }
     }
@@ -51,10 +51,11 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const titleInput = document.getElementById("title");
-  let title = "";
+  const authorInput = document.getElementById("author");
+  const pagesInput = document.getElementById("pages");
 
   titleInput.addEventListener("input", (event) => {
-    title = event.target.value;
+    const title = event.target.value;
 
     if (bookExists(title)) {
       exists.classList.add("exists");
@@ -68,8 +69,9 @@ document.addEventListener("DOMContentLoaded", () => {
   addBookForm.addEventListener("submit", (event) => {
     event.preventDefault();
 
-    const author = document.getElementById("author").value;
-    const pages = document.getElementById("pages").value;
+    const title = titleInput.value;
+    const author = authorInput.value;
+    const pages = pagesInput.value;
     const status = document.querySelector('input[name="status"]:checked').value;
 
     if (!bookExists(title)) {
@@ -95,123 +97,109 @@ function closeModal() {
   modalAddBook.classList.remove("open");
 }
 
-function Book(imageURL, title, author, pages, status) {
-  return {
-    img: imageURL,
-    title: title,
-    author: author,
-    pages: pages,
-    status: status,
-  };
+class Book {
+  constructor(imageURL, title, author, pages, status) {
+    this.img = imageURL;
+    this.title = title;
+    this.author = author;
+    this.pages = pages;
+    this.status = status;
+  }
 }
 
 function addBookToLibrary(bookObject) {
   myLibrary.push(bookObject);
 }
 
-function deleteBook(book) {
-  myLibrary.forEach((item, index) => {
-    let bookTitle = item.title.toLowerCase().replace(/ /g, "");
+function deleteBook(bookTitle) {
+  const index = myLibrary.findIndex(book => 
+    book.title.toLowerCase().replace(/ /g, "") === bookTitle.toLowerCase().replace(/ /g, "")
+  );
 
-    if (book.includes(bookTitle)) {
-      myLibrary.splice(index, 1);
-    }
-  });
+  if (index !== -1) {
+    myLibrary.splice(index, 1);
+  }
 }
 
 function displayLibrary() {
+  container.innerHTML = '';
+
   myLibrary.forEach((book) => {
-    if (cardChecker(book.title)) {
-      return;
-    } else {
-      const card = document.createElement("div");
-      const button = document.createElement("button");
-      const svg = document.createElement("img");
-      const bookDiv = document.createElement("div");
-      const bookImg = document.createElement("img");
-      const bookTitle = document.createElement("p");
-      const bookAuthor = document.createElement("p");
-      const bookPages = document.createElement("p");
-      const label = document.createElement("label");
-      const bookStatus = document.createElement("input");
-      const span = document.createElement("span");
-      const p = document.createElement("p");
+    const card = document.createElement("div");
+    const button = document.createElement("button");
+    const svg = document.createElement("img");
+    const bookDiv = document.createElement("div");
+    const bookImg = document.createElement("img");
+    const bookTitle = document.createElement("p");
+    const bookAuthor = document.createElement("p");
+    const bookPages = document.createElement("p");
+    const label = document.createElement("label");
+    const bookStatus = document.createElement("input");
+    const span = document.createElement("span");
+    const p = document.createElement("p");
 
-      card.classList.add("card");
-      button.classList.add("close-card");
-      bookDiv.classList.add("book");
-      bookTitle.classList.add("title");
-      bookAuthor.classList.add("author");
-      bookPages.classList.add("pages");
-      label.classList.add("switch");
-      bookStatus.type = "checkbox";
-      span.classList.add("slider");
+    card.classList.add("card");
+    button.classList.add("close-card");
+    bookDiv.classList.add("book");
+    bookTitle.classList.add("title");
+    bookAuthor.classList.add("author");
+    bookPages.classList.add("pages");
+    label.classList.add("switch");
+    bookStatus.type = "checkbox";
+    span.classList.add("slider");
 
-      button.id = "cardCloseButton";
-      button.name = "close";
-      svg.src = "./assets/images/close.svg";
-      svg.alt = "close";
-      bookImg.src = book.img;
-      bookImg.alt = "book cover";
-      bookImg.width = "200";
-      bookImg.height = "300";
-      bookTitle.textContent = book.title;
-      bookAuthor.textContent = book.author;
-      bookPages.textContent = `${book.pages} page/s`;
-      bookStatus.checked = book.status === "read";
-      p.textContent = "Read";
+    button.id = "cardCloseButton";
+    button.name = "close";
+    svg.src = "./assets/images/close.svg";
+    svg.alt = "close";
+    bookImg.src = book.img;
+    bookImg.alt = "book cover";
+    bookImg.width = "200";
+    bookImg.height = "300";
+    bookTitle.textContent = book.title;
+    bookAuthor.textContent = book.author;
+    bookPages.textContent = `${book.pages} page/s`;
+    bookStatus.checked = book.status === "read";
+    p.textContent = "Read";
 
-      button.appendChild(svg);
+    button.appendChild(svg);
 
-      bookDiv.appendChild(bookImg);
-      bookDiv.appendChild(bookTitle);
-      bookDiv.appendChild(bookAuthor);
-      bookDiv.appendChild(bookPages);
+    bookDiv.appendChild(bookImg);
+    bookDiv.appendChild(bookTitle);
+    bookDiv.appendChild(bookAuthor);
+    bookDiv.appendChild(bookPages);
 
-      label.appendChild(bookStatus);
-      span.appendChild(p);
-      label.appendChild(span);
+    label.appendChild(bookStatus);
+    span.appendChild(p);
+    label.appendChild(span);
 
-      card.appendChild(button);
-      card.appendChild(bookDiv);
-      card.appendChild(label);
+    card.appendChild(button);
+    card.appendChild(bookDiv);
+    card.appendChild(label);
 
-      container.appendChild(card);
-    }
+    container.appendChild(card);
   });
 }
 
 function bookExists(bookTitle) {
-  let exists = false;
-  let title = bookTitle.toLowerCase().replace(/ /g, "");
-
-  myLibrary.forEach((book) => {
-    let bookLib = book.title.toLowerCase().replace(/ /g, "");
-
-    if (bookLib === title) {
-      exists = true;
-    }
-  });
-
-  return exists;
-}
-
-function cardChecker(bookTitle) {
-  let exists = false;
-  const book = document.querySelector(".book");
-
-  if (book != null && book.innerHTML.includes(bookTitle)) {
-    exists = true;
-  }
-
-  return exists;
+  return myLibrary.some(book => 
+    book.title.toLowerCase().replace(/ /g, "") === bookTitle.toLowerCase().replace(/ /g, "")
+  );
 }
 
 function flush() {
   imagePreview.style.display = "none";
-  imageURL = "./assets/images/default.svg";
-  title.value = "";
-  author.value = "";
-  pages.value = "";
-  status.value = "";
+  imagePreview.src = "./assets/images/default.svg";
+
+  const inputs = [
+    document.getElementById("title"),
+    document.getElementById("author"),
+    document.getElementById("pages"),
+    document.getElementById("uploadedImage")
+  ];
+
+  inputs.forEach(input => input.value = '');
+
+  const statusInputs = document.querySelectorAll('input[name="status"]');
+  statusInputs.forEach(input => input.checked = false);
 }
