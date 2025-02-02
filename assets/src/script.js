@@ -55,7 +55,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const pagesInput = document.getElementById("pages");
 
   titleInput.addEventListener("input", (event) => {
-    const title = event.target.value;
+    const title = event.target.value.trim();
 
     if (bookExists(title)) {
       exists.classList.add("exists");
@@ -63,6 +63,44 @@ document.addEventListener("DOMContentLoaded", () => {
     } else {
       exists.classList.remove("exists");
       submitBookButton.disabled = false;
+    }
+
+    if (title === "") {
+      titleInput.setCustomValidity("Please input a title!");
+    } else {
+      titleInput.setCustomValidity("");
+    }
+
+    if (document.activeElement !== titleInput) {
+      titleInput.reportValidity();
+    }
+  });
+
+  authorInput.addEventListener("input", (event) => {
+    const author = event.target.value.trim();
+
+    if (author === "") {
+      authorInput.setCustomValidity("Please input an author!");
+    } else {
+      authorInput.setCustomValidity("");
+    }
+
+    if (document.activeElement !== authorInput) {
+      authorInput.reportValidity();
+    }
+  });
+
+  pagesInput.addEventListener("input", (event) => {
+    const pages = event.target.value.trim();
+
+    if (pages === "") {
+      pagesInput.setCustomValidity("Please input book pages!");
+    } else {
+      pagesInput.setCustomValidity("");
+    }
+
+    if (document.activeElement !== pagesInput) {
+      pagesInput.reportValidity();
     }
   });
 
@@ -112,8 +150,10 @@ function addBookToLibrary(bookObject) {
 }
 
 function deleteBook(bookTitle) {
-  const index = myLibrary.findIndex(book => 
-    book.title.toLowerCase().replace(/ /g, "") === bookTitle.toLowerCase().replace(/ /g, "")
+  const index = myLibrary.findIndex(
+    (book) =>
+      book.title.toLowerCase().replace(/ /g, "") ===
+      bookTitle.toLowerCase().replace(/ /g, "")
   );
 
   if (index !== -1) {
@@ -122,7 +162,7 @@ function deleteBook(bookTitle) {
 }
 
 function displayLibrary() {
-  container.innerHTML = '';
+  container.innerHTML = "";
 
   myLibrary.forEach((book) => {
     const card = document.createElement("div");
@@ -182,8 +222,10 @@ function displayLibrary() {
 }
 
 function bookExists(bookTitle) {
-  return myLibrary.some(book => 
-    book.title.toLowerCase().replace(/ /g, "") === bookTitle.toLowerCase().replace(/ /g, "")
+  return myLibrary.some(
+    (book) =>
+      book.title.toLowerCase().replace(/ /g, "") ===
+      bookTitle.toLowerCase().replace(/ /g, "")
   );
 }
 
@@ -195,11 +237,11 @@ function flush() {
     document.getElementById("title"),
     document.getElementById("author"),
     document.getElementById("pages"),
-    document.getElementById("uploadedImage")
+    document.getElementById("uploadedImage"),
   ];
 
-  inputs.forEach(input => input.value = '');
+  inputs.forEach((input) => (input.value = ""));
 
   const statusInputs = document.querySelectorAll('input[name="status"]');
-  statusInputs.forEach(input => input.checked = false);
+  statusInputs.forEach((input) => (input.checked = false));
 }
