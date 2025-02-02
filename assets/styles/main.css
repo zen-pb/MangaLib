@@ -275,7 +275,8 @@ form .details {
     gap: 1rem;
 }
 
-.details input[type="text"] {
+.details input[type="text"],
+.details input[type="number"] {
     padding: 1rem;
     border-radius: 12px;
     border: none;
@@ -361,7 +362,7 @@ footer {
     }
 }
 
-@media (width <= 655px){
+@media (width <=655px) {
     header {
         justify-content: center;
     }
@@ -370,10 +371,10 @@ footer {
         margin: 0;
     }
 
-    
+
 }
 
-@media (width <= 535px){
+@media (width <=535px) {
     dialog {
         justify-content: space-between;
         height: 670px;
@@ -409,5 +410,5 @@ footer {
     .details input[type="text"] {
         padding: 0.5rem;
     }
-    
+
 }
