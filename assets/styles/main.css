@@ -85,6 +85,7 @@ main {
 
 .card .author {
     font-size: 18px;
+    font-style: italic;
 }
 
 .switch {
@@ -93,6 +94,7 @@ main {
     width: 90px;
     height: 34px;
     align-self: flex-end;
+    margin-top: auto;
 }
 
 .switch input {
